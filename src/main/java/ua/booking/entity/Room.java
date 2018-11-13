@@ -27,6 +27,7 @@ public class Room {
     @JoinColumn(name = "category_id")
     private Category category;
 
+
    /* public Room(Integer number, String category, BigDecimal price) {
         this.number = number;
         this.category = category;

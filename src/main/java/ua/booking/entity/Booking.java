@@ -24,5 +24,6 @@ public class Booking {
     @OneToMany(mappedBy = "booking")
     private List<Room> rooms;
 
-
+    @ManyToMany(mappedBy = "bookings")
+    private List<Option> options;
 }

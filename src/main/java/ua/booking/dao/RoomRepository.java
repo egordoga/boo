@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findAllByCategory(Category category);
+
+    Room findByNumber(Integer number);
 }
