@@ -2,15 +2,13 @@ package ua.booking.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
-public class Order {
+public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +16,13 @@ public class Order {
 
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "booking")
+    private List<Room> rooms;
 
 
 }

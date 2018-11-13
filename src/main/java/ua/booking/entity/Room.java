@@ -3,10 +3,7 @@ package ua.booking.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
@@ -19,13 +16,20 @@ public class Room {
     private Long id;
 
     private Integer number;
-    private String category;
     private BigDecimal price;
+    //private Byte isFree;
 
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
 
-    public Room(Integer number, String category, BigDecimal price) {
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+   /* public Room(Integer number, String category, BigDecimal price) {
         this.number = number;
         this.category = category;
         this.price = price;
-    }
+    }*/
 }

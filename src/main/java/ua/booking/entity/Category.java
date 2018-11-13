@@ -7,15 +7,12 @@ import java.util.List;
 
 @Data
 @Entity
-public class User {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
-    private String phone;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Booking> bookings;
+    @OneToMany(mappedBy = "category")
+    private List<Room> rooms;
 }

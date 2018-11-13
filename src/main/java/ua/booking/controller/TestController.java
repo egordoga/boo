@@ -11,6 +11,6 @@ public class TestController {
 
     @GetMapping("/test")
     public Room sendRoom() {
-        return new Room(5, "lux", new BigDecimal("77"));
+        return new Room(/*5, "lux", new BigDecimal("77")*/);
     }
 }
