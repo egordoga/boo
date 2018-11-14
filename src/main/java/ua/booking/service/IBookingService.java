@@ -16,4 +16,8 @@ public interface IBookingService {
     String reserveRoom(BookingForm bookingForm);
 
     List<Booking> findBookings();
+
+    Booking findBooking(Long bid);
+
+    List<Booking> findBookingsFuture();
 }

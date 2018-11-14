@@ -13,6 +13,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String name;
+
     @OneToMany(mappedBy = "category")
     private List<Room> rooms;
 }

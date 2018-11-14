@@ -76,4 +76,14 @@ public class BookingService implements IBookingService {
     public List<Booking> findBookings() {
         return bookingRepository.findAll();
     }
+
+    @Override
+    public Booking findBooking(Long bid) {
+        return bookingRepository.getOne(bid);
+    }
+
+    @Override
+    public List<Booking> findBookingsFuture() {
+        return bookingRepository.findAllByEndDateAfter(LocalDate.now());
+    }
 }
