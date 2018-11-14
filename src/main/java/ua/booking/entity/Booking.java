@@ -26,4 +26,12 @@ public class Booking {
 
     @ManyToMany(mappedBy = "bookings")
     private List<Option> options;
+
+    public Booking(LocalDate startDate, LocalDate endDate, User user, List<Room> rooms, List<Option> options) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.user = user;
+        this.rooms = rooms;
+        this.options = options;
+    }
 }
