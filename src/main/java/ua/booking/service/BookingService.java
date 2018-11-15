@@ -82,7 +82,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public Booking findBooking(Long bid) {
-        return bookingRepository.getOne(bid);
+        return bookingRepository.findById(bid).orElse(null);
     }
 
     @Override

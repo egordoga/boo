@@ -7,7 +7,6 @@ import ua.booking.entity.Option;
 import ua.booking.entity.Room;
 import ua.booking.entity.User;
 import ua.booking.model.BookingForm;
-import ua.booking.model.UUserTest;
 import ua.booking.service.BookingService;
 import ua.booking.service.RoomService;
 import ua.booking.service.UserService;
@@ -15,10 +14,10 @@ import ua.booking.service.UserService;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController/*("/user")*/
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -70,8 +69,10 @@ public class UserController {
     }
 
     @GetMapping("/cost")
-    public String sendCost(@RequestParam("id") String strId) {
-        Booking booking = bookingService.findBooking(Long.parseLong(strId));
+    public String sendCost(@RequestParam("id") Long id) {
+        //Booking booking = bookingService.findBooking(Long.parseLong(strId));
+        Booking booking = bookingService.findBooking(id);
+        System.out.println("Booking" + booking);
         BigDecimal additionalCost = booking.getOptions().stream().map(Option::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         return booking.getRoom().getPrice().add(additionalCost).toString();
     }

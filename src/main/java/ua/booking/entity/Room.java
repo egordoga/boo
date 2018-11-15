@@ -1,13 +1,16 @@
 package ua.booking.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class Room {
@@ -23,8 +26,8 @@ public class Room {
    /* @ManyToMany(mappedBy = "rooms")
     private List<Option> options;*/
 
-    @OneToOne(mappedBy = "room")
-    private Booking booking;
+    @OneToMany(mappedBy = "room")
+    private List<Booking> bookings;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
