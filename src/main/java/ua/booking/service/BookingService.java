@@ -41,8 +41,8 @@ public class BookingService implements IBookingService {
 
     @Override
     public String reserveRoom(BookingForm bookingForm) {
-        Room room;
-        List<Room> rooms = new ArrayList<>();
+       /* Room room;
+        List<Room> rooms = new ArrayList<>();*/
         Option option;
         List<Option> options = new ArrayList<>();
         User user = userRepository.findByName(bookingForm.getUser());
@@ -52,21 +52,24 @@ public class BookingService implements IBookingService {
 
         //Остальные проверки аналогичны и проигнорированы сознательно
 
-        for (String s : bookingForm.getRooms()) {
-            room = roomRepository.findByNumber(Integer.valueOf(s));
-            rooms.add(room);
-        }
-
-        for (String s : bookingForm.getOptions()) {
-            option = optionRepository.findByName(s);
-            options.add(option);
-        }
+        //for (String sr : bookingForm.getRooms()) {
+            Room room = roomRepository.findByNumber(Integer.valueOf(bookingForm.getRoom()));
+            for (String strOpt : bookingForm.getOptions()) {
+                option = optionRepository.findByName(strOpt);
+                options.add(option);
+            }
+            //room.setOptions(options);
+            //rooms.add(room);
+       // }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy");
         LocalDate startDate = LocalDate.parse(bookingForm.getStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(bookingForm.getEndDate(), formatter);
+        if (startDate.isBefore(LocalDate.now()) || startDate.compareTo(endDate) > 0) {
+            return "Проверьте даты";
+        }
 
-        Booking booking = new Booking(startDate, endDate, user, rooms, options);
+        Booking booking = new Booking(startDate, endDate, user, room, options);
         bookingRepository.save(booking);
 
         return "Бронирование прошло успешно";

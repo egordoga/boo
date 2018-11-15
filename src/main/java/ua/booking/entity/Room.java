@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +20,10 @@ public class Room {
     private BigDecimal price;
     //private Byte isFree;
 
-    @ManyToOne
-    @JoinColumn(name = "booking_id")
+   /* @ManyToMany(mappedBy = "rooms")
+    private List<Option> options;*/
+
+    @OneToOne(mappedBy = "room")
     private Booking booking;
 
     @ManyToOne

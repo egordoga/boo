@@ -3,6 +3,7 @@ package ua.booking.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -14,10 +15,10 @@ public class Option {
     private Long id;
 
     private String name;
-    private String price;
+    private BigDecimal price;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "room_option", joinColumns = {@JoinColumn(name = "option_id")},
-            inverseJoinColumns = {@JoinColumn(name = "room_id")})
+    @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
+            inverseJoinColumns = {@JoinColumn(name = "booking_id")})
     private List<Booking> bookings;
 }

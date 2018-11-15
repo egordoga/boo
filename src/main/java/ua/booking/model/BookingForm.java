@@ -1,7 +1,7 @@
 package ua.booking.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import ua.booking.entity.Room;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
 public class BookingForm {
 
     private String user;
-    private List<String> rooms;
+    private String room;
     private String startDate;
     private String endDate;
     private List<String> options;
