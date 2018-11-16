@@ -1,6 +1,8 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,30 +28,20 @@ public class RoomController {
     @GetMapping("/free")
     public List<Room> sendFreeRooms(@RequestParam("startDate") String start,
                                     @RequestParam("endDate") String end) {
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy");
-        LocalDate startDate = LocalDate.parse(start/*, formatter*/);
-        LocalDate endDate = LocalDate.parse(end/*, formatter*/);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy");
+        LocalDate startDate = LocalDate.parse(start, formatter);
+        LocalDate endDate = LocalDate.parse(end, formatter);
 
-        System.out.println(roomService.findRoomsFree(startDate, endDate).toString());
+        roomService.findRoomsFree(startDate, endDate).forEach(System.out::println);
 
         return roomService.findRoomsFree(startDate, endDate);
     }
 
-    @GetMapping("/category")
-    public List<Room> /*String*/ sendByCategory(@RequestParam("name") String categoryName) {
-
-
-        System.out.println("HHHHHHHHHHHHHHHH " + categoryName);
-
+    @GetMapping(path = "/category", produces="application/json")
+    public List<Room>  sendByCategory(@RequestParam("name") String categoryName) {
         Category category = categoryService.findCategoryByName(categoryName);
+        roomService.findRoomsByCategory(category).forEach(System.out::println);
 
-        System.out.println("aaaaaaaaaaaaaaaaa Category " + category.getName());
-        System.out.println(category.toString());
-        System.out.println("List " + roomService.findRoomsByCategory(category).toString());
-
-        //System.out.println("OOOOOOOOOO" + roomService.findRoomsByCategory(category).toString());
         return roomService.findRoomsByCategory(category);
-
-       // return "GGGGGGGGGGGGGGG";
     }
 }

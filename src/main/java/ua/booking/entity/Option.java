@@ -1,5 +1,6 @@
 package ua.booking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,5 +26,6 @@ public class Option {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
             inverseJoinColumns = {@JoinColumn(name = "booking_id")})
+    @JsonBackReference
     private List<Booking> bookings;
 }

@@ -1,5 +1,7 @@
 package ua.booking.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,13 +26,16 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
+    @JsonBackReference
     private Room room;
 
     @ManyToMany(mappedBy = "bookings")
+    @JsonManagedReference
     private List<Option> options;
 
     public Booking(LocalDate startDate, LocalDate endDate, User user, Room room, List<Option> options) {
