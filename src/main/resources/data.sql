@@ -28,7 +28,7 @@ insert into room values (11, 20, 50, 3)
 insert into room values (12, 21, 30, 4)
 
 insert into booking values (1, '2018-01-20', '2018-01-15', 1 , 1)
-insert into booking values (2, '2018-02-20', '2018-02-15', 12, 2)
+insert into booking values (2, '2018-12-20', '2018-02-15', 12, 2)
 insert into booking values (3, '2018-11-20', '2018-11-15', 6 , 3)
 insert into booking values (4, '2018-12-31', '2018-11-15', 11, 4)
 insert into booking values (5, '2018-12-26', '2018-12-20', 5 , 1)

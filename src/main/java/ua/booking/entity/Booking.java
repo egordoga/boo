@@ -26,16 +26,16 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
+    @JsonBackReference(value = "user")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
-    @JsonBackReference
+    @JsonBackReference(value = "room")
     private Room room;
 
     @ManyToMany(mappedBy = "bookings")
-    @JsonManagedReference
+    @JsonManagedReference(value = "opt")
     private List<Option> options;
 
     public Booking(LocalDate startDate, LocalDate endDate, User user, Room room, List<Option> options) {

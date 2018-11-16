@@ -37,7 +37,7 @@ public class RoomController {
         return roomService.findRoomsFree(startDate, endDate);
     }
 
-    @GetMapping(path = "/category", produces="application/json")
+    @GetMapping("/category")
     public List<Room>  sendByCategory(@RequestParam("name") String categoryName) {
         Category category = categoryService.findCategoryByName(categoryName);
         roomService.findRoomsByCategory(category).forEach(System.out::println);

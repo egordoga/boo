@@ -1,6 +1,7 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ua.booking.entity.Booking;
 import ua.booking.entity.Option;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@RestController/*("/user")*/
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -27,8 +28,11 @@ public class UserController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping("/add")
+    @PostMapping(/*path = */"/add"/*, consumes = MediaType.APPLICATION_JSON_VALUE*/)
     public void addUser(@RequestBody User user) {
+
+        System.out.println("HHHHHHHHHHHH " + user.getName());
+
         userService.saveUser(user);
     }
 
@@ -72,7 +76,6 @@ public class UserController {
     public String sendCost(@RequestParam("id") Long id) {
         //Booking booking = bookingService.findBooking(Long.parseLong(strId));
         Booking booking = bookingService.findBooking(id);
-        System.out.println("Booking" + booking);
         BigDecimal additionalCost = booking.getOptions().stream().map(Option::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         return booking.getRoom().getPrice().add(additionalCost).toString();
     }

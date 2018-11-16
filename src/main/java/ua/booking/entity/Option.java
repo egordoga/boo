@@ -26,6 +26,6 @@ public class Option {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
             inverseJoinColumns = {@JoinColumn(name = "booking_id")})
-    @JsonBackReference
+    @JsonBackReference(value = "opt")
     private List<Booking> bookings;
 }

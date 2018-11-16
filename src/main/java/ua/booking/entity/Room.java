@@ -30,12 +30,12 @@ public class Room {
     private List<Option> options;*/
 
     @OneToMany(mappedBy = "room")
-    @JsonManagedReference
+    @JsonManagedReference(value = "room")
     private List<Booking> bookings;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference
+    @JsonBackReference(value = "category")
     private Category category;
 
 

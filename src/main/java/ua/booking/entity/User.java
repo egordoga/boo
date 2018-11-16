@@ -25,6 +25,6 @@ public class User {
     private String phone;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user")
     private List<Booking> bookings;
 }

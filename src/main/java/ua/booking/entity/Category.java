@@ -22,6 +22,6 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category")
-    @JsonManagedReference
+    @JsonManagedReference(value = "category")
     private List<Room> rooms;
 }
