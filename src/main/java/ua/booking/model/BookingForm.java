@@ -3,6 +3,7 @@ package ua.booking.model;
 import lombok.Data;
 import ua.booking.entity.Room;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -12,5 +13,5 @@ public class BookingForm {
     private String room;
     private String startDate;
     private String endDate;
-    private List<String> options;
+    private ArrayList<String> options = new ArrayList<>();
 }

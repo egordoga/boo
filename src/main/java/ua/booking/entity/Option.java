@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,15 +18,25 @@ import java.util.List;
 public class Option {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private BigDecimal price;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
-            inverseJoinColumns = {@JoinColumn(name = "booking_id")})
+            inverseJoinColumns = {@JoinColumn(name = "booking_id")})*/
+
+    @ManyToMany(mappedBy = "options", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference(value = "opt")
-    private List<Booking> bookings;
+    private List<Booking> bookings = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Option{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

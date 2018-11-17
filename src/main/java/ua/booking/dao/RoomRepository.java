@@ -18,7 +18,19 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     //List<Room> findAllByBo
 
-    @Query(value = "select r.* from room r where r.id not in(" +
-            " select b.id from booking b where start_date <= :endDate and b.end_date > :startDate)", nativeQuery = true)
+    /*@Query(value = "select r.* from room r where r.id not in(" +
+            " select b.id from booking b where start_date <= :endDate and b.end_date > :startDate)", nativeQuery = true)*/
+
+    @Query(value = "select r.* from room r where r.id not in (select b.room_id from booking b where" +
+            " (:startDate >= b.start_date and :startDate < b.end_date) or" +
+            " (:endDate > b.start_date and :endDate <= b.end_date) or" +
+            " (:startDate <= b.start_date and :endDate >= b.end_date))", nativeQuery = true)
+
+
+   /* @Query(value = "select r.* from room r where r.id not in (select b.id from booking b where" +
+            " ((:startDate >= b.start_date) and (:startDate < b.end_date)) or" +
+            " ((:endDate > b.start_date) and (:endDate <= b.end_date)) or" +
+            " ((:startDate <= b.start_date) and (:endDate >= b.end_date)))", nativeQuery = true)*/
+
     List<Room> findAllNoReserved(@Param("startDate")LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

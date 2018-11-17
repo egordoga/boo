@@ -56,6 +56,12 @@ public class BookingService implements IBookingService {
             Room room = roomRepository.findByNumber(Integer.valueOf(bookingForm.getRoom()));
             for (String strOpt : bookingForm.getOptions()) {
                 option = optionRepository.findByName(strOpt);
+
+                System.out.println(option.toString());
+                if (option == null) {
+                    System.out.println("Option wrang");
+                }
+
                 options.add(option);
             }
             //room.setOptions(options);
@@ -88,5 +94,14 @@ public class BookingService implements IBookingService {
     @Override
     public List<Booking> findBookingsFuture() {
         return bookingRepository.findAllByEndDateAfter(LocalDate.now());
+    }
+
+//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+
+
+
+    public List<Booking> findAllReserved(LocalDate startDate, LocalDate endDate){
+        return bookingRepository.findAllReserved(startDate, endDate);
+
     }
 }

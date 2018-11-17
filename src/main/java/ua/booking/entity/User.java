@@ -18,13 +18,18 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String phone;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "user")
     private List<Booking> bookings;
+
+    public User(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
 }
