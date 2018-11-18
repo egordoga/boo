@@ -1,10 +1,7 @@
 package ua.booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +15,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-//@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class)
 public class Booking {
 
     @Id
@@ -38,13 +34,10 @@ public class Booking {
     @JsonBackReference(value = "room")
     private Room room;
 
-   /* @ManyToMany(mappedBy = "bookings", cascade = CascadeType.ALL, fetch = FetchType.EAGER)*/
-
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
             inverseJoinColumns = {@JoinColumn(name = "booking_id")})
-    @JsonManagedReference(value = "opt")
+    @JsonIgnore
     private List<Option> options = new ArrayList<>();
 
     public Booking(LocalDate startDate, LocalDate endDate, User user, Room room, List<Option> options) {

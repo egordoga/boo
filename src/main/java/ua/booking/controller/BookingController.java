@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.booking.entity.Booking;
 import ua.booking.entity.Option;
+import ua.booking.model.CostForm;
 import ua.booking.service.BookingService;
 
 import java.math.BigDecimal;
@@ -28,9 +29,11 @@ public class BookingController {
     }
 
     @GetMapping("/cost")
-    public String sendCost(@RequestParam("id") Long id) {
+    public CostForm sendCost(@RequestParam("id") Long id) {
         Booking booking = bookingService.findBooking(id);
+        BigDecimal mainCost = booking.getRoom().getPrice();
         BigDecimal additionalCost = booking.getOptions().stream().map(Option::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-        return String.format("Full cost of booking %d is %s", booking.getId(), booking.getRoom().getPrice().add(additionalCost).toString());
+        BigDecimal totalCost = mainCost.add(additionalCost);
+        return new CostForm(mainCost, additionalCost, totalCost);
     }
 }

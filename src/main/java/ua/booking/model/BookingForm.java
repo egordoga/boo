@@ -1,12 +1,16 @@
 package ua.booking.model;
 
-import lombok.Data;
-import ua.booking.entity.Room;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookingForm {
 
     private String user;

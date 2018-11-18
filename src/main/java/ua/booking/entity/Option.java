@@ -1,7 +1,5 @@
 package ua.booking.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,19 +22,6 @@ public class Option {
     private String name;
     private BigDecimal price;
 
-    /*@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
-            inverseJoinColumns = {@JoinColumn(name = "booking_id")})*/
-
     @ManyToMany(mappedBy = "options", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference(value = "opt")
     private List<Booking> bookings = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Option{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                '}';
-    }
 }

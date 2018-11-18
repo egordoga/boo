@@ -1,19 +1,17 @@
 package ua.booking.service;
 
 import ua.booking.entity.Booking;
-import ua.booking.entity.Room;
 import ua.booking.entity.User;
 import ua.booking.model.BookingForm;
+import ua.booking.model.ReservedForm;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface IBookingService {
-    void saveBooking(Booking booking);
 
     List<Booking> findBookingsByUser(User user);
 
-    String reserveRoom(BookingForm bookingForm);
+    ReservedForm reserveRoom(BookingForm bookingForm);
 
     List<Booking> findBookings();
 

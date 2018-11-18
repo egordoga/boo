@@ -3,7 +3,6 @@ package ua.booking.service;
 import ua.booking.entity.Category;
 import ua.booking.entity.Room;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
 

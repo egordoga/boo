@@ -1,16 +1,12 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ua.booking.entity.Booking;
 import ua.booking.entity.Category;
 import ua.booking.entity.Room;
-import ua.booking.service.BookingService;
 import ua.booking.service.CategoryService;
 import ua.booking.service.RoomService;
 
@@ -22,10 +18,15 @@ import java.util.List;
 @RequestMapping("/room")
 public class RoomController {
 
-    @Autowired
     private RoomService roomService;
-    @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    public RoomController(RoomService roomService, CategoryService categoryService) {
+        this.roomService = roomService;
+        this.categoryService = categoryService;
+    }
+
 
     @GetMapping("/free")
     public List<Room> sendFreeRooms(@RequestParam("start") String start,
@@ -34,14 +35,11 @@ public class RoomController {
         LocalDate startDate = LocalDate.parse(start, formatter);
         LocalDate endDate = LocalDate.parse(end, formatter);
 
-        System.out.println("START " + startDate);
-        System.out.println("END " + endDate);
-
         return roomService.findRoomsFree(startDate, endDate);
     }
 
     @GetMapping("/category")
-    public List<Room>  sendByCategory(@RequestParam("name") String categoryName) {
+    public List<Room> sendByCategory(@RequestParam("name") String categoryName) {
         Category category = categoryService.findCategoryByName(categoryName);
         roomService.findRoomsByCategory(category).forEach(System.out::println);
 

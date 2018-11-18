@@ -11,6 +11,7 @@ import ua.booking.entity.Option;
 import ua.booking.entity.Room;
 import ua.booking.entity.User;
 import ua.booking.model.BookingForm;
+import ua.booking.model.ReservedForm;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,55 +31,39 @@ public class BookingService implements IBookingService {
     private OptionRepository optionRepository;
 
     @Override
-    public void saveBooking(Booking booking) {
-        bookingRepository.save(booking);
-    }
-
-    @Override
     public List<Booking> findBookingsByUser(User user) {
         return bookingRepository.findAllByUser(user);
     }
 
     @Override
-    public String reserveRoom(BookingForm bookingForm) {
-       /* Room room;
-        List<Room> rooms = new ArrayList<>();*/
+    public ReservedForm reserveRoom(BookingForm bookingForm) {
+
         Option option;
         List<Option> options = new ArrayList<>();
         User user = userRepository.findByName(bookingForm.getUser());
         if (user == null) {
-            return "Такого клиента не найдено. Зарегестрируйтесь";
+            return new ReservedForm(false, "User not find");
         }
 
         //Остальные проверки аналогичны и проигнорированы сознательно
 
-        //for (String sr : bookingForm.getRooms()) {
-            Room room = roomRepository.findByNumber(Integer.valueOf(bookingForm.getRoom()));
-            for (String strOpt : bookingForm.getOptions()) {
-                option = optionRepository.findByName(strOpt);
-
-                System.out.println(option.toString());
-                if (option == null) {
-                    System.out.println("Option wrang");
-                }
-
-                options.add(option);
-            }
-            //room.setOptions(options);
-            //rooms.add(room);
-       // }
+        Room room = roomRepository.findByNumber(Integer.valueOf(bookingForm.getRoom()));
+        for (String strOpt : bookingForm.getOptions()) {
+            option = optionRepository.findByName(strOpt);
+            options.add(option);
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy");
         LocalDate startDate = LocalDate.parse(bookingForm.getStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(bookingForm.getEndDate(), formatter);
         if (startDate.isBefore(LocalDate.now()) || startDate.compareTo(endDate) > 0) {
-            return "Проверьте даты";
+            return new ReservedForm(false, "date wrong");
         }
 
         Booking booking = new Booking(startDate, endDate, user, room, options);
         bookingRepository.save(booking);
 
-        return "Бронирование прошло успешно";
+        return new ReservedForm(true, "Booking successfully");
     }
 
     @Override
@@ -94,14 +79,5 @@ public class BookingService implements IBookingService {
     @Override
     public List<Booking> findBookingsFuture() {
         return bookingRepository.findAllByEndDateAfter(LocalDate.now());
-    }
-
-//YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
-
-
-
-    public List<Booking> findAllReserved(LocalDate startDate, LocalDate endDate){
-        return bookingRepository.findAllReserved(startDate, endDate);
-
     }
 }
