@@ -1,6 +1,6 @@
-#              Description of "Booking" project
+##              Description of "Booking" project
 
-###This project is a REST application for interaction with the hotel site
+####        This project is a REST application for interaction with the hotel site
 
 Capabilities:
 
