@@ -4,7 +4,7 @@
 
 Capabilities:
 
- * View list of available rooms for specified dates -----/room/free
+ * View list of available rooms for specified dates         /room/free
  * View rooms filtered by category -------------------------/room/category
  * Create user----------------------------------------------------/user/add
  * User can book the room for specified days------------/user/booking
