@@ -41,7 +41,6 @@ public class RoomController {
     @GetMapping("/category")
     public List<Room> sendByCategory(@RequestParam("name") String categoryName) {
         Category category = categoryService.findCategoryByName(categoryName);
-        roomService.findRoomsByCategory(category).forEach(System.out::println);
 
         return roomService.findRoomsByCategory(category);
     }

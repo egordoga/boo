@@ -1,7 +1,6 @@
 package ua.booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +36,6 @@ public class Booking {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "booking_option", joinColumns = {@JoinColumn(name = "option_id")},
             inverseJoinColumns = {@JoinColumn(name = "booking_id")})
-    @JsonIgnore
     private List<Option> options = new ArrayList<>();
 
     public Booking(LocalDate startDate, LocalDate endDate, User user, Room room, List<Option> options) {
