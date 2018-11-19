@@ -41,7 +41,7 @@ create table booking (
   room_id    bigint,
   user_id    bigint,
   primary key (id),
-    foreign key (room_id) references room (id),
+  foreign key (room_id) references room (id),
   foreign key (user_id) references user (id)
 );
 
@@ -49,6 +49,6 @@ create table booking_option (
   option_id  bigint not null,
   booking_id bigint not null,
   foreign key (option_id) references booking(id),
-    foreign key (booking_id) references option(id)
+  foreign key (booking_id) references option(id)
 );
 
