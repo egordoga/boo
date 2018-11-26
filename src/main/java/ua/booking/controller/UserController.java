@@ -61,8 +61,8 @@ public class UserController {
     }
 
     @GetMapping("user_booking/{username}")
-    public List<Booking> sendBookingByUser(@RequestParam("username")  User user  /*String username*/) {
-        //User user = userService.findUserByName(username);
+    public List<Booking> sendBookingByUser(@PathVariable("username") String username) {
+        User user = userService.findUserByName(username);
         return bookingService.findBookingsByUser(user);
     }
 }

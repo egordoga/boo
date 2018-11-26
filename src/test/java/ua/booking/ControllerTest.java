@@ -43,7 +43,7 @@ public class ControllerTest extends AbstractTest {
 
     @Test
     public void costBookingTest() {
-        when().get("booking/cost?id=9")
+        when().get("/booking/cost/9")
                 .then().statusCode(200)
                 .and()
                 .assertThat()
@@ -84,7 +84,7 @@ public class ControllerTest extends AbstractTest {
 
     @Test
     public void bookingsByUserTest() throws JSONException {
-        Response response = get("/user/user_booking?user=Dog");
+        Response response = get("/user/user_booking/Dog");
         int status = response.getStatusCode();
         assertEquals(200, status);
         JSONArray jsonResponse = new JSONArray(response.asString());
@@ -94,7 +94,7 @@ public class ControllerTest extends AbstractTest {
 
     @Test
     public void sendFreeRoomTest() {
-        when().get("/room/free?start=30-11-18&end=20-12-18")
+        when().get("/room/free/30-11-18/20-12-18")
                 .then()
                 .statusCode(200)
                 .and()
@@ -103,7 +103,7 @@ public class ControllerTest extends AbstractTest {
 
     @Test
     public void sendByCategoryTest() {
-        when().get("/room/category?name=luxury")
+        when().get("/room/category/luxury")
                 .then()
                 .statusCode(200)
                 .and()
