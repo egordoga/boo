@@ -1,13 +1,17 @@
 1.  http://localhost:8080/room/free?start=30-11-18&end=20-12-18
+1.  http://localhost:8080/room/free/30-11-18/20-12-18
 
 2.  http://localhost:8080/room/category?name=standard
+2.  http://localhost:8080/room/category/standard
 
 3.  curl -i -X POST -H "Content-Type: application/json" -d {\"name\":\"Elephant\",\"phone\":\"5555\"} http://localhost:8080/user/add/
 
 4.  curl -i -X POST -H "Content-Type: application/json;charset=UTF-8" -d {\"user\":\"Dog\",\"room\":\"15\",\"startDate\":\"20-11-18\",\"endDate\":\"25-11-18\",\"options\":[\"cleaning\",\"minibar\"]} http://localhost:8080/user/booking/
 
 5.  http://localhost:8080/user/user_booking?user=Tiger
+5.  http://localhost:8080/user/user_booking/Tiger
 
 6.  http://localhost:8080/booking/cost?id=9
+6.  http://localhost:8080/booking/cost/9
 
 7  http://localhost:8080/booking/all_bookings

@@ -1,10 +1,7 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.booking.entity.Booking;
 import ua.booking.entity.Option;
 import ua.booking.model.CostForm;
@@ -23,14 +20,11 @@ public class BookingController {
     @GetMapping("/all_bookings")
     public List<Booking> sendBookings() {
         return bookingService.findBookings();
-
-        //Возможно в задании имелось ввиду просмотр всех резервирований на будущий период. Тогда
-        //return bookingService.findBookingsFuture();
     }
 
-    @GetMapping("/cost")
-    public CostForm sendCost(@RequestParam("id") Long id) {
-        Booking booking = bookingService.findBooking(id);
+    @GetMapping("/cost/{id}")
+    public CostForm sendCost(@PathVariable("id") Booking booking) {
+       // Booking booking = bookingService.findBooking(id);
         BigDecimal mainCost = booking.getRoom().getPrice();
         BigDecimal additionalCost = booking.getOptions().stream().map(Option::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal totalCost = mainCost.add(additionalCost);

@@ -60,9 +60,9 @@ public class UserController {
         return new ResponseEntity<>(bookingService.reserveRoom(bookingForm), HttpStatus.OK);
     }
 
-    @GetMapping("user_booking")
-    public List<Booking> sendBookingByUser(@RequestParam("user") String username) {
-        User user = userService.findUserByName(username);
+    @GetMapping("user_booking/{username}")
+    public List<Booking> sendBookingByUser(@RequestParam("username")  User user  /*String username*/) {
+        //User user = userService.findUserByName(username);
         return bookingService.findBookingsByUser(user);
     }
 }

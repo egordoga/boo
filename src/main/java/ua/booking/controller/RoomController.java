@@ -1,10 +1,7 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.booking.entity.Category;
 import ua.booking.entity.Room;
 import ua.booking.service.CategoryService;
@@ -28,9 +25,9 @@ public class RoomController {
     }
 
 
-    @GetMapping("/free")
-    public List<Room> sendFreeRooms(@RequestParam("start") String start,
-                                    @RequestParam("end") String end) {
+    @GetMapping("/free/{start}/{end}")
+    public List<Room> sendFreeRooms(@PathVariable("start") String start,
+                                    @PathVariable("end") String end) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MM-yy");
         LocalDate startDate = LocalDate.parse(start, formatter);
         LocalDate endDate = LocalDate.parse(end, formatter);
@@ -38,8 +35,8 @@ public class RoomController {
         return roomService.findRoomsFree(startDate, endDate);
     }
 
-    @GetMapping("/category")
-    public List<Room> sendByCategory(@RequestParam("name") String categoryName) {
+    @GetMapping("/category/{name}")
+    public List<Room> sendByCategory(@PathVariable("name") String categoryName) {
         Category category = categoryService.findCategoryByName(categoryName);
 
         return roomService.findRoomsByCategory(category);
