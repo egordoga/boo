@@ -1,7 +1,10 @@
 package ua.booking.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ua.booking.entity.Booking;
 import ua.booking.entity.Option;
 import ua.booking.model.CostForm;
@@ -24,7 +27,6 @@ public class BookingController {
 
     @GetMapping("/cost/{id}")
     public CostForm sendCost(@PathVariable("id") Booking booking) {
-       // Booking booking = bookingService.findBooking(id);
         BigDecimal mainCost = booking.getRoom().getPrice();
         BigDecimal additionalCost = booking.getOptions().stream().map(Option::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal totalCost = mainCost.add(additionalCost);
